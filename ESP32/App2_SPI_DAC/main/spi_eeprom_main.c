@@ -16,11 +16,11 @@
 
 #include "sdkconfig.h"
 #include "esp_log.h"
-#include "spi_eepromMicrochip.h"
+#include "spi_eeprom.h"
 
 
 #ifdef CONFIG_IDF_TARGET_ESP32
-#   define EEPROM_HOST    VSPI_HOST
+#   define SPI_HOST    VSPI_HOST
 #   define PIN_NUM_MISO 19
 #   define PIN_NUM_MOSI 23
 #   define PIN_NUM_CLK  18
@@ -29,13 +29,11 @@
 
 static const char TAG[] = "main";
 
-void app_main(void) {
-
+void app_main(void)
+{
     esp_err_t ret;
-
 #ifndef CONFIG_EXAMPLE_USE_SPI1_PINS
-    ESP_LOGI(TAG, "Initializing bus SPI%d...", EEPROM_HOST+1);
-    
+    ESP_LOGI(TAG, "Initializing bus SPI%d...", SPI_HOST+1);
     spi_bus_config_t buscfg={
         .miso_io_num = PIN_NUM_MISO,
         .mosi_io_num = PIN_NUM_MOSI,
@@ -44,21 +42,18 @@ void app_main(void) {
         .quadhd_io_num = -1,
         .max_transfer_sz = 32,
     };
-    
     //Initialize the SPI bus
-    ret = spi_bus_initialize(EEPROM_HOST, &buscfg, SPI_DMA_CH_AUTO);
+    ret = spi_bus_initialize(SPI_HOST, &buscfg, SPI_DMA_CH_AUTO);
     ESP_ERROR_CHECK(ret);
-
 #else
     ESP_LOGI(TAG, "Attach to main flash bus...");
 #endif
 
     eeprom_config_t eeprom_config = {
         .cs_io = PIN_NUM_CS,
-        .host = EEPROM_HOST,
+        .host = SPI_HOST,
         .miso_io = PIN_NUM_MISO,
     };
-
 #ifdef CONFIG_EXAMPLE_INTR_USED
     eeprom_config.intr_used = true;
     gpio_install_isr_service(0);
@@ -74,26 +69,19 @@ void app_main(void) {
     ESP_ERROR_CHECK(ret);
 
     const char test_str[] = "Hello World!";
-    /*
     ESP_LOGI(TAG, "Write: %s", test_str);
     for (int i = 0; i < sizeof(test_str); i++) {
         // No need for this EEPROM to erase before write.
-        //do{
-            ret = spi_eeprom_write(eeprom_handle, i, 0xFF);
-            ESP_ERROR_CHECK(ret);
-        //}while(1);
+        ret = spi_eeprom_write(eeprom_handle, i, test_str[i]);
+        ESP_ERROR_CHECK(ret);
     }
-    */
-
-    ret = spi_eeprom_write(eeprom_handle, 0, 'H');
-    ESP_ERROR_CHECK(ret);
+    
 
     uint8_t test_buf[32] = "";
     for (int i = 0; i < sizeof(test_str); i++) {
         ret = spi_eeprom_read(eeprom_handle, i, &test_buf[i]);
         ESP_ERROR_CHECK(ret);
     }
-
     ESP_LOGI(TAG, "Read: %s", test_buf);
 
     ESP_LOGI(TAG, "Example finished.");
@@ -103,3 +91,4 @@ void app_main(void) {
         vTaskDelay(1);
     }
 }
+

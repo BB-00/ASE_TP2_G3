@@ -25,7 +25,7 @@
 #define EEPROM_CLK_FREQ         (5*1000*1000)   //When powered by 3.3V, EEPROM max freq is 1MHz
 #define EEPROM_INPUT_DELAY_NS   ((1000*1000*1000/EEPROM_CLK_FREQ)/2+20)
 
-//#define ADDR_MASK   0x7f //?? not sure
+#define ADDR_MASK   0x7f //?? not sure
 
 #define WRITE   0x02
 #define RDSR    0x05
@@ -33,6 +33,29 @@
 #define WSRR    0x01
 #define WRDI    0x04
 #define WREN    0x06
+
+/*
+#define EEPROM_BUSY_TIMEOUT_MS  5
+
+#define EEPROM_CLK_FREQ         (1*1000*1000)   //When powered by 3.3V, EEPROM max freq is 1MHz
+#define EEPROM_INPUT_DELAY_NS   ((1000*1000*1000/EEPROM_CLK_FREQ)/2+20)
+
+#define ADDR_MASK   0x7f
+
+#define CMD_EWDS    0x200
+#define CMD_WRAL    0x200
+#define CMD_ERAL    0x200
+#define CMD_EWEN    0x200
+#define CMD_CKBS    0x000
+#define CMD_READ    0x300
+#define CMD_ERASE   0x380
+#define CMD_WRITE   0x280
+
+#define ADD_EWDS    0x00
+#define ADD_WRAL    0x20
+#define ADD_ERAL    0x40
+#define ADD_EWEN    0x60
+*/
 
 
 /// Context (config and data) of the spi_eeprom
@@ -154,7 +177,7 @@ esp_err_t spi_eeprom_init(const eeprom_config_t *cfg, eeprom_context_t** out_ctx
          */
         .spics_io_num = -1,
         .queue_size = 1,
-        .flags = SPI_DEVICE_HALFDUPLEX | SPI_DEVICE_POSITIVE_CS,
+        .flags = SPI_DEVICE_HALFDUPLEX,
         .pre_cb = cs_high,
         .post_cb = cs_low,
         .input_delay_ns = EEPROM_INPUT_DELAY_NS,  //the EEPROM output the data half a SPI clock behind.
@@ -204,22 +227,30 @@ cleanup:
 
 esp_err_t spi_eeprom_read(eeprom_context_t* ctx, uint8_t addr, uint8_t* out_data)
 {
-    addr = addr & 0x01ff;
+    
     spi_transaction_t t = {
-        .cmd = READ | ((addr & 0x100) >> 5),
-        .addr = addr & 0x00ff,
+        .cmd = READ | (addr & ADDR_MASK),
         .rxlength = 8,
         .flags = SPI_TRANS_USE_RXDATA,
         .user = ctx,
     };
 
-    cs_low(&t);
+    /*
+    addr = addr & 0x1ff;
+    spi_transaction_t t = {
+        .cmd = READ | ((addr & 0x100) >> 5),
+        .addr = addr & 0xff,
+        .rxlength = 8,
+        .flags = SPI_TRANS_USE_RXDATA,
+    };*/
+
     esp_err_t err = spi_device_polling_transmit(ctx->spi, &t);
     if (err!= ESP_OK) return err;
 
     *out_data = t.rx_data[0];
     return ESP_OK;
 }
+
 /*
 esp_err_t spi_eeprom_erase(eeprom_context_t* ctx, uint8_t addr)
 {
@@ -244,16 +275,26 @@ esp_err_t spi_eeprom_write(eeprom_context_t* ctx, uint8_t addr, uint8_t data)
     err = spi_device_acquire_bus(ctx->spi, portMAX_DELAY);
     if (err != ESP_OK) return err;
 
-    addr = addr & 0x01ff;
+    
     spi_transaction_t t = {
-        .cmd = WRITE | ((addr & 0x100) >> 5),
-        .addr = addr & 0x00ff,
+        .cmd = WRITE | (addr & ADDR_MASK),
         .length = 8,
         .flags = SPI_TRANS_USE_TXDATA,
         .tx_data = {data},
         .user = ctx,
     };
-    cs_low(&t);
+
+    /*
+    addr = addr & 0x1ff;
+    spi_transaction_t t = {
+        .cmd = WRITE | ((addr & 0x100) >> 5),
+        //.addr = addr & 0xff,
+        .length = 8,
+        .flags = SPI_TRANS_USE_TXDATA,
+        .tx_data = {data},
+        .user = ctx,
+    };*/
+
     err = spi_device_polling_transmit(ctx->spi, &t);
 
     if (err == ESP_OK) {
@@ -269,12 +310,10 @@ esp_err_t spi_eeprom_write_enable(eeprom_context_t* ctx)
     return eeprom_simple_cmd(ctx, WREN);
 }
 
-/*
 esp_err_t spi_eeprom_write_disable(eeprom_context_t* ctx)
 {
-    return eeprom_simple_cmd(ctx, CMD_EWDS | ADD_EWDS);
+    return eeprom_simple_cmd(ctx, WRDI);
 }
-*/
 
 /*
 esp_err_t spi_eeprom_erase_all(eeprom_context_t* ctx)
@@ -298,10 +337,7 @@ esp_err_t spi_eeprom_erase_all(eeprom_context_t* ctx)
     spi_device_release_bus(ctx->spi);
     return err;
 }
-*/
 
-
-/*
 esp_err_t spi_eeprom_write_all(eeprom_context_t* ctx, uint8_t data)
 {
 #if !CONFIG_EXAMPLE_5V_COMMANDS
