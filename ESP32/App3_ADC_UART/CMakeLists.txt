@@ -3,4 +3,4 @@
 cmake_minimum_required(VERSION 3.5)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-project(ADC_UART_app)
+project(App3_ADC_UART)
