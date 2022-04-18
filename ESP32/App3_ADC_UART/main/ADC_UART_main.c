@@ -101,7 +101,10 @@ static void rx_task(void *arg)
             data[rxBytes] = 0;
             ESP_LOGI(RX_TASK_TAG, "Read %d bytes: '%s'", rxBytes, data);
             ESP_LOG_BUFFER_HEXDUMP(RX_TASK_TAG, data, rxBytes, ESP_LOG_INFO);
-            printf("UART2 received from UART1: %s\n", data);
+            uint8_t *b;
+            b = &data;
+
+            printf("UART1 received from UART0: %d\n", (int)*b);
         }
     }
     free(data);
