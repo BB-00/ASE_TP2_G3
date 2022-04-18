@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "E:/MIECT/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/CMakeFiles/bootloader"
+			"file" : "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "E:/MIECT/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/CMakeFiles/bootloader.rule"
+			"file" : "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "E:/MIECT/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "E:/MIECT/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "E:/MIECT/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "E:/MIECT/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "E:/MIECT/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		},
 		{
-			"file" : "E:/MIECT/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "E:/MIECT/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "E:/MIECT/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		}
 	],
 	"target" : 
