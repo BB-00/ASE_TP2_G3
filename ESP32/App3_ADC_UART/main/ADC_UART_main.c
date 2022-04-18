@@ -106,6 +106,7 @@ static void rx_task(void *arg)
 
             printf("UART1 received from UART0: %d\n", (int)*b);
         }
+        printf("AHHHHHHHHHHH");
     }
     free(data);
 }
