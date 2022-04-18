@@ -28,7 +28,7 @@
 #define DEFAULT_UART_TX_PIN     (2)
 #define CONSOLE_UART_RX_PIN     (4)
 #define CONSOLE_UART_TX_PIN     (5)
-
+static const int BUF_SIZE = 1024;
 static const int RX_BUF_SIZE = 1024;
 
 #define TXD_PIN (GPIO_NUM_4)
@@ -105,7 +105,7 @@ static void rx_task(void *arg)
 
             printf("UART1 received from UART0: %d\n", (int)*b);
         }
-        printf("AHHHHHHHHHHH");
+
     }
     free(data);
 }
@@ -114,7 +114,10 @@ void app_main(void)
 {
     init();
 
-
+    //Configure ADC
+    adc1_config_width(width);
+    adc1_config_channel_atten(channel, atten);
+    
     //Characterize ADC
     adc_chars = calloc(1, sizeof(esp_adc_cal_characteristics_t));
     esp_adc_cal_value_t val_type = esp_adc_cal_characterize(unit, atten, width, DEFAULT_VREF, adc_chars);
