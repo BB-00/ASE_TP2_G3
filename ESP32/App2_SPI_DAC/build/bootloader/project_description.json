@@ -1,8 +1,8 @@
 {
     "project_name":       "bootloader",
     "project_path":       "/home/bernardo/esp/esp-idf/components/bootloader/subproject",
-    "build_dir":          "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App2_SPI_DAC/build/bootloader",
-    "config_file":        "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App2_SPI_DAC/sdkconfig",
+    "build_dir":          "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build/bootloader",
+    "config_file":        "/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/sdkconfig",
     "config_defaults":    "",
     "app_elf":            "bootloader.elf",
     "app_bin":            "bootloader.bin",

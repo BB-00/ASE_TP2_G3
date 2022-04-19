@@ -32,14 +32,9 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "TRUE")
 endif()
 
-# Set default install directory permissions.
-if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/home/bernardo/.espressif/tools/xtensa-esp32-elf/esp-2021r2-8.4.0/xtensa-esp32-elf/bin/xtensa-esp32-elf-objdump")
-endif()
-
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App2_SPI_DAC/build/esp-idf/soc/esp32/cmake_install.cmake")
+  include("/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build/esp-idf/soc/esp32/cmake_install.cmake")
 
 endif()
 

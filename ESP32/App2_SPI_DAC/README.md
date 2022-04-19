@@ -1,24 +1,32 @@
-## SPI master half duplex EEPROM example
+# _Sample project_
 
- This code demonstrates how to use the SPI master half duplex mode to read/write a AT93C46D
- EEPROM (8-bit mode). There is also an Kconfig option `EXAMPLE_USE_SPI1_PINS` allowing use the
- SPI1 (bus with code Flash connected on official modules).
+(See the README.md file in the upper level 'examples' directory for more information about examples.)
 
-### Connections
+This is the simplest buildable example. The example is used by command `idf.py create-project`
+that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
 
-For different chip and host used, the connections may be different.
 
-|      | ESP32 | ESP32 | ESP32S2 | ESP32C3 | ESP32S3 |
-| ---- | ----- | ----- | ------- | ------- | ------- |
-| Host | SPI1  | HSPI  | FSPI    | SPI2    | SPI2    |
-| VCC  | 3.3V  | 3.3V  | 3.3V    | 3.3V    | 3.3V    |
-| GND  | GND   | GND   | GND     | GND     | GND     |
-| DO   | 7     | 18    | 37      | 2       | 13      |
-| DI   | 8     | 23    | 35      | 7       | 11      |
-| SK   | 6     | 19    | 36      | 6       | 12      |
-| CS   | 13    | 13    | 34      | 10      | 10      |
-| ORG  | GND   | GND   | GND     | GND     | GND     |
 
-### Notes
+## How to use example
+We encourage the users to use the example as a template for the new projects.
+A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
 
-If you meet timeout issues, please check your connections.
+## Example folder contents
+
+The project **sample_project** contains one source file in C language [main.c](main/main.c). The file is located in folder [main](main).
+
+ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
+files that provide set of directives and instructions describing the project's source files and targets
+(executable, library, or both). 
+
+Below is short explanation of remaining files in the project folder.
+
+```
+├── CMakeLists.txt
+├── main
+│   ├── CMakeLists.txt
+│   └── main.c
+└── README.md                  This is the file you are currently reading
+```
+Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
+They are not used or needed when building with CMake and idf.py.
