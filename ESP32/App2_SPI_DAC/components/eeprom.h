@@ -19,8 +19,8 @@
 typedef struct {
 	int32_t	_totalBytes;
 	int16_t	_addressBits;
-	int16_t	_pageSize;
-	int16_t	_lastPage;
+	//int16_t	_pageSize;
+	//int16_t	_lastPage;
 	spi_device_handle_t _SPIHandle;
 } EEPROM_t;
 
@@ -33,5 +33,5 @@ esp_err_t eeprom_WriteDisable(EEPROM_t * dev);
 int16_t eeprom_Read(EEPROM_t * dev, uint16_t addr, uint8_t *buf, int16_t n);
 int16_t eeprom_WriteByte(EEPROM_t * dev, uint16_t addr, uint8_t wdata);
 int32_t eeprom_TotalBytes(EEPROM_t * dev);
-int16_t eeprom_PageSize(EEPROM_t * dev);
-int16_t eeprom_LastPage(EEPROM_t * dev);
+// int16_t eeprom_PageSize(EEPROM_t * dev);
+// int16_t eeprom_LastPage(EEPROM_t * dev);

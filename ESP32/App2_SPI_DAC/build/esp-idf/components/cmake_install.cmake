@@ -1,4 +1,4 @@
-# Install script for directory: /home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/components
+# Install script for directory: /home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App2_SPI_DAC/components
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

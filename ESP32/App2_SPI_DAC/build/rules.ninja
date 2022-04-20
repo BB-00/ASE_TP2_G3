@@ -1566,7 +1566,7 @@ rule C_STATIC_LIBRARY_LINKER____idf_components
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /usr/bin/cmake -S/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project -B/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build
+  command = /usr/bin/cmake -S/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App2_SPI_DAC -B/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App2_SPI_DAC/build
   description = Re-running CMake...
   generator = 1
 
