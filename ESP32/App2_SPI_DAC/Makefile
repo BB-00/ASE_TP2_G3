@@ -3,6 +3,6 @@
 # project subdirectory.
 #
 
-PROJECT_NAME := sample_project
+PROJECT_NAME := App2_SPI_DAC
 
 include $(IDF_PATH)/make/project.mk

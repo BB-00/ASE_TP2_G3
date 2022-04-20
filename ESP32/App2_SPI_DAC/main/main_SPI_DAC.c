@@ -72,14 +72,14 @@ void app_main(void)
 	// }  
 
     //write decrease
-	// for (int i=0; i<128; i++) {
-	// 	wdata[i]=0xff-i;	
-	// }
+	for (int i=0; i<128; i++) {
+		wdata[i]=0xff-i;	
+	}
 
 	//write all bits 0
-	for (int i=0; i<128; i++) {
-		wdata[i]=0x00;	
-	}
+	// for (int i=0; i<128; i++) {
+	// 	wdata[i]=0x00;	
+	// }
 
 	for (int addr=0; addr<128;addr++) {
 		len =  eeprom_WriteByte(&dev, addr, wdata[addr]);

@@ -134,7 +134,7 @@ esp_err_t eeprom_WriteEnable(EEPROM_t * dev)
 	data[0] = EEPROM_CMD_WREN;
 	spi_transaction_t SPITransaction = {
 		.length = 1 * 8,
-		.tx_buffer = data
+		.tx_buffer = data,
 	};
 	esp_err_t ret = spi_device_transmit( dev->_SPIHandle, &SPITransaction );
 	ESP_ERROR_CHECK(ret);
