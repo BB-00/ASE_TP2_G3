@@ -33,7 +33,7 @@
 #define SENSOR_ADDR                 0x4D                       /*!< Slave address of the sensor */
 
 
-static const char* TAG = "App1";
+static const char* TAG = "App1_I2C_PWM";
 
 static esp_err_t sensor_read(uint8_t reg_addr, uint8_t *data, size_t len)
 {
@@ -110,12 +110,17 @@ void app_main(void) {
 
         duty[0] = 0;
         duty[1] = 0;
-        if (data >= 24) {
-            if (data >= 34) duty[1] = 4094;
-            else duty[1] = ((26 - data) * -1) * 511; 
-        } else{
-            if (data <= 14)  duty[0] = 4094;
-            else duty[0] = ((13 - data) * -1) * 511;
+        if (data >= 26) {
+            duty[0] = 4094;
+            if (data >= 34){
+                duty[1] = 4094;
+            }
+            else{
+                duty[1] = ((23 - data) * -1) * 511;
+            }
+        } else {
+            if (data < 1)  duty[0] = 0;
+            else duty[0] = data * 157;
         }
 
         ESP_LOGI(TAG, "duty = %d, %d", duty[0], duty[1]);

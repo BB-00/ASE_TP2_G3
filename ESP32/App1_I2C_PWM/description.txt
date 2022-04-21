@@ -1,0 +1,6 @@
+O objetivo desta a aplicação é, conforme o valor da temperatura, o valor é representado numa escala continua em 2 LEDs,
+que variam a sua intensidade (1º LED: 1 - 25, 2º LED: 26 - 34). O 1º LED, mantém a sua intensidade no máximo se o valor de temperatura for 26 ou mais.
+
+Comunicação com o sensor de temperatura é feito através de I2C, e a variação de intensidade dos LEDs é feita através de PWM.
+
+Contribuição nas configurações do I2C e do PWM por parte do grupo TP2_G4.

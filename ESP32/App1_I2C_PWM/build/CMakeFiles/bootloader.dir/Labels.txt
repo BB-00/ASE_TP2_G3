@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build/CMakeFiles/bootloader
-/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build/CMakeFiles/bootloader.rule
-/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build/CMakeFiles/bootloader-complete.rule
-/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
-/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App1_I2C_PWM/build/CMakeFiles/bootloader
+/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App1_I2C_PWM/build/CMakeFiles/bootloader.rule
+/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App1_I2C_PWM/build/CMakeFiles/bootloader-complete.rule
+/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App1_I2C_PWM/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App1_I2C_PWM/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App1_I2C_PWM/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App1_I2C_PWM/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App1_I2C_PWM/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App1_I2C_PWM/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App1_I2C_PWM/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule

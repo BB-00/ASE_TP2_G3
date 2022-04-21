@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/sample_project/build/esp-idf/soc/esp32/cmake_install.cmake")
+  include("/home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App1_I2C_PWM/build/esp-idf/soc/esp32/cmake_install.cmake")
 
 endif()
 
