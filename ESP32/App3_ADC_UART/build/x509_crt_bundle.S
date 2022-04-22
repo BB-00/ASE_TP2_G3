@@ -1,4 +1,4 @@
-/* * Data converted from /home/bernardo/Documents/Ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from /home/joaooliveira/Documents/ano4/ASE/ASE_TP2_G3/ESP32/App3_ADC_UART/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded
