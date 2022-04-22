@@ -9,6 +9,7 @@
 #include "sdkconfig.h"
 #include "esp_log.h"
 #include "eeprom.h"
+#include <driver/dac.h>
 
 static const char *TAG = "MAIN";
 
@@ -44,13 +45,17 @@ void app_main(void)
 {
     ESP_LOGI(TAG, "EEPROM_MODEL=%s", EEPROM_MODEL);
 	EEPROM_t dev;
+	esp_err_t ret;
 	spi_master_init(&dev);
 	int32_t totalBytes = eeprom_TotalBytes(&dev);
 	ESP_LOGI(TAG, "totalBytes=%d Bytes",totalBytes);
 
+	// Enable DAC
+	ret = dac_output_enable(DAC_CHANNEL_1);
+	ESP_ERROR_CHECK(ret);
+
 	// Get Status Register
 	uint8_t reg;
-	esp_err_t ret;
 	ret = eeprom_ReadStatusReg(&dev, &reg);
 	if (ret != ESP_OK) {
 		ESP_LOGI(TAG, "ReadStatusReg Fail %d",ret);
@@ -60,26 +65,15 @@ void app_main(void)
 
 	uint8_t wdata[128];
 	int len;
-	
-    //write all bits 1
-    // for (int i=0; i<128; i++) {
-	// 	wdata[i]=0xff;	
+
+	//write random values
+	// for (int i=0 ; i<128 ; i++) {
+	// 	wdata[i] = (uint8_t) esp_random() & 0xFF;
 	// }
 
-    //write increase
-	// for (int i=0; i<128; i++) {
-	// 	wdata[i]=i;	
-	// }  
-
-    //write decrease
-	for (int i=0; i<128; i++) {
-		wdata[i]=0xff-i;	
+	for (int i=0 ; i<128 ; i++) {
+		wdata[i] = 0xFF;
 	}
-
-	//write all bits 0
-	// for (int i=0; i<128; i++) {
-	// 	wdata[i]=0x00;	
-	// }
 
 	for (int addr=0; addr<128;addr++) {
 		len =  eeprom_WriteByte(&dev, addr, wdata[addr]);
@@ -100,4 +94,10 @@ void app_main(void)
 	}
 	ESP_LOGI(TAG, "Read Data: len=%d", len);
 	dump(rbuf, 128);
+
+	// Output data to dac
+	for(int addr=0 ; addr<128 ; addr++){
+		dac_output_voltage(DAC_CHANNEL_1, rbuf[addr]);
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+	}
 }
