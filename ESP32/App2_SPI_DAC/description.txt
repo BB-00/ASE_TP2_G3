@@ -1,4 +1,5 @@
-O objetivo desta aplicação consiste na escrita e leitura sucessiva de valores random (usando a função esp_random) na eeprom, e de seguida, os valores são convertidos para tensões.
+O objetivo desta aplicação consiste na escrita e leitura sucessiva de valores random (usando a função esp_random)
+na eeprom, e de seguida, os valores são convertidos para tensões.
 
 A escrita e leitura na eeprom é realizada através de SPI, são convertidos em tensões através da DAC.
 
