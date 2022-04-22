@@ -1,0 +1,7 @@
+o objetivo desta aplicação era a escrita e leitura na UART, os valores escritos na uart 
+são valores obtidos pela adc.
+
+Recebemos uma mensagem de echo sempre que o tempo de espera se esgota ou quando intruduzimos um input do teclado
+
+Exercicio resolvido com a contribuição do grupo TP2-G4.
+

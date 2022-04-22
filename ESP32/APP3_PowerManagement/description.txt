@@ -1,0 +1,9 @@
+o objetivo desta aplicação era a escrita e leitura na UART, os valores escritos na uart 
+são valores obtidos pela adc.
+
+Recebemos uma mensagem de echo sempre que intruduzimos um input do teclado
+
+Quando esgota o tempo de input, a esp32 entra em modo de light sleep.
+
+
+Exercicio resolvido com a contribuição do grupo TP2-G4.

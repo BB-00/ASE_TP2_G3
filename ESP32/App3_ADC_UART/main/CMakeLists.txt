@@ -1,2 +1,2 @@
-idf_component_register(SRCS "main_ADC_UART.c"
+idf_component_register(SRCS "ADC_UART_Power.c"
                     INCLUDE_DIRS ".")
