@@ -1141,3 +1141,4 @@
 839	1126	1650589582375826967	main.elf	d0f6da7fface064
 1126	1195	1650589582443826966	.bin_timestamp	bd1e5e4dc0275e20
 1195	1214	0	esp-idf/esptool_py/CMakeFiles/app_check_size	8da17cc4dcd4692a
+0	4157022	0	CMakeFiles/confserver	c4114b7ee3dac286
