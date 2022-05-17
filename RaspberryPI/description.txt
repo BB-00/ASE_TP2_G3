@@ -1,0 +1,1 @@
+Projeto de domotica com alguns sensores (temperatura ambiente, temperatura de agua, humidade) de forma a manter os valores destes sempre numa gama controlada
