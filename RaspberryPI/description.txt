@@ -1,1 +1,3 @@
-Projeto de domotica com alguns sensores (temperatura ambiente, temperatura de agua, humidade) de forma a manter os valores destes sempre numa gama controlada
+Este micro projeto é um projeto de domótica para gestão de uma smart home, com um sensor de temperatura e um sensor de proximidade que pode ser utilizado para saber se foi deixada uma porta aberta.
+A leitura de valores do sensor de temperatura é feita com o i2c e a leitura de valores do sensor de proximidade é feita utilizando 2 GPIOs "normais".
+Dependo do valor de tempratura é ligado um led, que simula o ligar do ar condicionado (quente e frio). Se a distancia lida do sensor de proximidade for maior que 5cm durante x tempo, um outro led começa a piscar. Assim que ou AC é ligado ou o led começa a piscar é enviado um email de forma a notificar o utilizador.
