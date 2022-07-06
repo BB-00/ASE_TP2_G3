@@ -1,8 +1,8 @@
 import os
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import numpy as np
-import cv2
+import cv2 as cv2
+from cv2 import cuda
 
 #%matplotlib inline
 
@@ -19,17 +19,19 @@ imageFiles = os.listdir(imageDir)
 imageList = []
 
 for i in range(0, len(imageFiles)):
-    imageList.append(mpimg.imread(imageDir + imageFiles[i]))
+    imageList.append(cv2.imread(imageDir + imageFiles[i]))
 
 print(imageFiles)
 
 def display_images(images, cmap=None):
-    plt.figure(figsize=(40,40))    
+    # plt.figure(figsize=(40,40))    
+    # for i, image in enumerate(images):
+    #     plt.subplot(3,2,i+1)
+    #     plt.imshow(image, cmap)
+    #     plt.autoscale(tight=True)
+    # plt.show()
     for i, image in enumerate(images):
-        plt.subplot(3,2,i+1)
-        plt.imshow(image, cmap)
-        plt.autoscale(tight=True)
-    plt.show()
+        cv2.imshow("image", image)
     
 display_images(imageList)
 
@@ -98,7 +100,8 @@ def grayscale(img):
     return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
 def canny(img):
-    return cv2.Canny(grayscale(img), 50, 120)
+    
+    return cv2.cuda.Canny(grayscale(img), 50, 120)
 
 canny_img = list(map(canny, roi_img))
 display_images(canny_img,cmap='gray')
@@ -150,11 +153,11 @@ def draw_lines(img, lines, thickness=5):
 
         pts = np.array([[left_line_x1, int(0.65*img.shape[0])],[left_line_x2, int(img.shape[0])],[right_line_x2, int(img.shape[0])],[right_line_x1, int(0.65*img.shape[0])]], np.int32)
         pts = pts.reshape((-1,1,2))
-        cv2.fillPoly(img,[pts],(0,0,255))      
+        cv2.cuda.fillPoly(img,[pts],(0,0,255))      
         
         
-        cv2.line(img, (left_line_x1, int(0.65*img.shape[0])), (left_line_x2, int(img.shape[0])), leftColor, 10)
-        cv2.line(img, (right_line_x1, int(0.65*img.shape[0])), (right_line_x2, int(img.shape[0])), rightColor, 10)
+        cv2.cuda.line(img, (left_line_x1, int(0.65*img.shape[0])), (left_line_x2, int(img.shape[0])), leftColor, 10)
+        cv2.cuda.line(img, (right_line_x1, int(0.65*img.shape[0])), (right_line_x2, int(img.shape[0])), rightColor, 10)
     except ValueError:
             #I keep getting errors for some reason, so I put this here. Idk if the error still persists.
         pass
@@ -166,7 +169,7 @@ def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
     """
     `img` should be the output of a Canny transform.
     """
-    lines = cv2.HoughLinesP(img, rho, theta, threshold, np.array([]), minLineLength=min_line_len, maxLineGap=max_line_gap)
+    lines = cv2.cuda.HoughLinesP(img, rho, theta, threshold, np.array([]), minLineLength=min_line_len, maxLineGap=max_line_gap)
     line_img = np.zeros((img.shape[0], img.shape[1], 3), dtype=np.uint8)
     draw_lines(line_img, lines)
     return line_img
@@ -186,11 +189,11 @@ def weighted_img(img, initial_img, α=0.8, β=1., λ=0.):
     initial_img * α + img * β + λ
     NOTE: initial_img and img must be the same shape!
     """
-    return cv2.addWeighted(initial_img, α, img, β, λ)
+    return cv2.cuda.addWeighted(initial_img, α, img, β, λ)
 
 def weightSum(input_set):
     img = list(input_set)
-    return cv2.addWeighted(img[0], 1, img[1], 0.8, 0)
+    return cv2.cuda.addWeighted(img[0], 1, img[1], 0.8, 0)
 
 result_img = list(map(weightSum, zip(hough_img, imageList)))
 display_images(result_img)
@@ -202,9 +205,9 @@ display_images(result_img)
 def processImage(image):
     interest = roi(image)
     filterimg = color_filter(interest)
-    canny = cv2.Canny(grayscale(filterimg), 50, 120)
+    canny = cv2.cuda.createCannyEdgeDetector.detect(grayscale(filterimg), 50, 120)
     myline = hough_lines(canny, 1, np.pi/180, 10, 20, 5)
-    weighted_img = cv2.addWeighted(myline, 1, image, 0.8, 0)
+    weighted_img = cv2.cuda.addWeighted(myline, 1, image, 0.8, 0)
     
     return weighted_img
 
