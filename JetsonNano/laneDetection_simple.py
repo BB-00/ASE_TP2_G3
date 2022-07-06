@@ -2,7 +2,6 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2 as cv2
-from cv2 import cuda
 
 #%matplotlib inline
 
@@ -24,14 +23,14 @@ for i in range(0, len(imageFiles)):
 print(imageFiles)
 
 def display_images(images, cmap=None):
-    # plt.figure(figsize=(40,40))    
-    # for i, image in enumerate(images):
-    #     plt.subplot(3,2,i+1)
-    #     plt.imshow(image, cmap)
-    #     plt.autoscale(tight=True)
-    # plt.show()
+    plt.figure(figsize=(40,40))    
     for i, image in enumerate(images):
-        cv2.imshow("image", image)
+    	plt.subplot(3,2,i+1)
+    	plt.imshow(image, cmap)
+    	plt.autoscale(tight=True)
+    plt.show()
+    #for i, image in enumerate(images):
+    #    cv2.imshow("image", image)
     
 display_images(imageList)
 
@@ -41,7 +40,9 @@ display_images(imageList)
 
 def color_filter(image):
     #convert to HLS to mask based on HLS
-    hls = cv2.cvtColor(image, cv2.COLOR_RGB2HLS)
+    imgMat = cv2.cuda_GpuMat(image)
+    imgMat_filter = cv2.cuda.cvtColor(imgMat, cv2.COLOR_RGB2HLS)
+    hls = imgMat_filter.download()
     lower = np.array([0,190,0])
     upper = np.array([255,255,255])
     
@@ -50,11 +51,17 @@ def color_filter(image):
     
     yellowmask = cv2.inRange(hls, yellower, yelupper)    
     whitemask = cv2.inRange(hls, lower, upper)
-    
-    mask = cv2.bitwise_or(yellowmask, whitemask)  
-    masked = cv2.bitwise_and(image, image, mask = mask)    
-    
 
+    imgMat1 = cv2.cuda_GpuMat(yellowmask)
+    imgMat2 = cv2.cuda_GpuMat(whitemask)
+    maskMat = cv2.cuda.bitwise_or(imgMat1, imgMat2) 
+    mask = maskMat.download()
+    
+    #imgMat3 = cv2.cuda_GpuMat(image)
+    #maskedMat = cv2.cuda.bitwise_and(imgMat3, imgMat3, mask=mask)
+    #masked = maskedMat.download()
+
+    masked = cv2.bitwise_and(image, image, mask = mask)
 
     return masked
 
@@ -97,11 +104,16 @@ display_images(roi_img)
 ##########################################################
 
 def grayscale(img):
-    return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    imgMat = cv2.cuda_GpuMat(img)
+    imgMat_grey = cv2.cuda.cvtColor(imgMat, cv2.COLOR_RGB2GRAY)
+    return imgMat_grey.download()
 
 def canny(img):
-    
-    return cv2.cuda.Canny(grayscale(img), 50, 120)
+    imgMat = cv2.cuda_GpuMat(grayscale(img))
+    detector = cv2.cuda.createCannyEdgeDetector(low_thresh=50,high_thresh=120)
+    destImg = detector.detect(imgMat)
+    canny = destImg.download()	
+    return canny
 
 canny_img = list(map(canny, roi_img))
 display_images(canny_img,cmap='gray')
@@ -153,11 +165,11 @@ def draw_lines(img, lines, thickness=5):
 
         pts = np.array([[left_line_x1, int(0.65*img.shape[0])],[left_line_x2, int(img.shape[0])],[right_line_x2, int(img.shape[0])],[right_line_x1, int(0.65*img.shape[0])]], np.int32)
         pts = pts.reshape((-1,1,2))
-        cv2.cuda.fillPoly(img,[pts],(0,0,255))      
+        cv2.fillPoly(img,[pts],(0,0,255))      
         
         
-        cv2.cuda.line(img, (left_line_x1, int(0.65*img.shape[0])), (left_line_x2, int(img.shape[0])), leftColor, 10)
-        cv2.cuda.line(img, (right_line_x1, int(0.65*img.shape[0])), (right_line_x2, int(img.shape[0])), rightColor, 10)
+        cv2.line(img, (left_line_x1, int(0.65*img.shape[0])), (left_line_x2, int(img.shape[0])), leftColor, 10)
+        cv2.line(img, (right_line_x1, int(0.65*img.shape[0])), (right_line_x2, int(img.shape[0])), rightColor, 10)
     except ValueError:
             #I keep getting errors for some reason, so I put this here. Idk if the error still persists.
         pass
@@ -169,7 +181,12 @@ def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
     """
     `img` should be the output of a Canny transform.
     """
-    lines = cv2.cuda.HoughLinesP(img, rho, theta, threshold, np.array([]), minLineLength=min_line_len, maxLineGap=max_line_gap)
+    imgMat  = cv2.cuda_GpuMat(img)
+    detector = cv2.cuda.createHoughSegmentDetector(rho, theta, min_line_len, max_line_gap)
+    destImg =detector.detect(imgMat)
+    lines = destImg.download()
+
+ #   lines = cv2.HoughLinesP(img, rho, theta, threshold, np.array([]), minLineLength=min_line_len, maxLineGap=max_line_gap)
     line_img = np.zeros((img.shape[0], img.shape[1], 3), dtype=np.uint8)
     draw_lines(line_img, lines)
     return line_img
@@ -205,8 +222,8 @@ display_images(result_img)
 def processImage(image):
     interest = roi(image)
     filterimg = color_filter(interest)
-    canny = cv2.cuda.createCannyEdgeDetector.detect(grayscale(filterimg), 50, 120)
-    myline = hough_lines(canny, 1, np.pi/180, 10, 20, 5)
+    can = canny(filterimg)
+    myline = hough_lines(can, 1, np.pi/180, 10, 20, 5)
     weighted_img = cv2.cuda.addWeighted(myline, 1, image, 0.8, 0)
     
     return weighted_img
