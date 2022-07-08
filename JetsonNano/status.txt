@@ -1,0 +1,3 @@
+Sensor de Temperatura - TESTED SUCCESSFULLY
+Sensor de Proximidade - TESTED SUCCESSFULLY
+Servidor SMTP - TESTED SUCCESSFULLY

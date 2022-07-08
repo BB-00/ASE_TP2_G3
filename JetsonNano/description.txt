@@ -1,0 +1,1 @@
+Deteção em video das faixas de uma estrada, e posterior sobreposição das faixas com a imagem original. A linguagem será python.
